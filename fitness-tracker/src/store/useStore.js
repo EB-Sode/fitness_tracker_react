@@ -1,7 +1,8 @@
 import { create } from "zustand";
 
-const useWorkoutStore = create((set) => ({
+const useStore = create((set) => ({
   workouts: [],
+  items: [],
 
   // Add a new workout
   addWorkout: (workout) =>
@@ -17,6 +18,17 @@ const useWorkoutStore = create((set) => ({
 
   // Clear all workouts
   clearWorkouts: () => set({ workouts: [] }),
+
+  // Load exercises from JSON
+  loadItems: async () => {
+    try {
+      const response = await fetch("/exercise.json");
+      const data = await response.json();
+      set({ items: data });
+    } catch (error) {
+      console.error("Error loading exercise data:", error);
+    }
+  },
 }));
 
-export default useWorkoutStore;
+export default useStore;

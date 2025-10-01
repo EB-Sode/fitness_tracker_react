@@ -25,9 +25,8 @@ export default function Dashboard() {
             <img
               src="../exerciser.png"
               alt="Exerciser"
-              className="w-60 h-80 rounded-full border-red-500 shadow-lg"
+              className="w-100 h-100 rounded-full border-red-500 shadow-lg"
             />
-          
           </aside>
 
           {/* RIGHT SECTION - DASHBOARD CONTENT */}

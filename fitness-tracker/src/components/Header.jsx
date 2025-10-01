@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-50">
-     <div className="max-w-6xl mx-auto flex justify-between items-center">
+     <div className="max-w-7xl mx-auto flex justify-between items-center mt-10 px-4 py-2 shadow-md rounded-b-lg">
      <h1 className="text-xl font-bold">🏋️ Fitness Tracker</h1>
       <nav className="flex justify-center gap-8 py-4">
         <NavLink

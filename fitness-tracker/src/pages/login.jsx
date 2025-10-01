@@ -1,10 +1,10 @@
 import { useState } from "react";
+import Layout from "../components/Layout";
 
 export default function LoginSignup() {
   const [isLogin, setIsLogin] = useState(true);
 
   return (
-    
     <div className="flex items-center justify-center min-h-screen">
       <div className="w-full max-w-md bg-gray-800 bg-opacity-90 rounded-2xl shadow-lg p-8">
         <h2 className="text-2xl font-bold text-center text-red-400 mb-6">

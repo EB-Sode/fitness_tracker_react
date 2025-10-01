@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "name": "Yoga",
+    "image": "/images/yoga.jpg",
+    "durationOptionsHours": [0.5, 1],
+    "description": "Start with basic poses like downward dog and child's pose. Focus on slow breathing and controlled stretching movements.",
+    "purpose": "Improves flexibility and mental calmness.",
+    "categories": ["flexibility", "endurance"]
+  },
+  {
+    "id": 2,
+    "name": "Running",
+    "image": "/images/running.jpg",
+    "durationOptionsHours": [0.5, 1, 2],
+    "description": "Run at a steady pace, maintaining good posture and breathing rhythm. Alternate between jogging and sprinting for variation.",
+    "purpose": "Enhances cardiovascular health and burns calories.",
+    "categories": ["endurance", "losing weight"]
+  },
+  {
+    "id": 3,
+    "name": "Cycling",
+    "image": "/images/cycling.jpg",
+    "durationOptionsHours": [1, 2],
+    "description": "Use a bike indoors or outdoors, maintaining a steady speed. Focus on pushing through the thighs and glutes.",
+    "purpose": "Builds leg strength and boosts stamina.",
+    "categories": ["endurance", "losing weight"]
+  },
+  {
+    "id": 4,
+    "name": "Skipping",
+    "image": "/images/skipping.jpg",
+    "durationOptionsHours": [0.25, 0.5, 1],
+    "description": "Jump rope with controlled wrist movements. Keep jumps light and consistent to avoid joint strain.",
+    "purpose": "Burns calories quickly and improves agility.",
+    "categories": ["endurance", "losing weight"]
+  },
+  {
+    "id": 5,
+    "name": "Arm Building",
+    "image": "/images/arm_building.jpg",
+    "durationOptionsHours": [0.5, 1],
+    "description": "Perform push-ups, bicep curls, and tricep dips using body weight or dumbbells.",
+    "purpose": "Strengthens arm muscles and tones upper body.",
+    "categories": ["muscle building"]
+  },
+  {
+    "id": 6,
+    "name": "Abs Workout",
+    "image": "/images/abs_workout.jpg",
+    "durationOptionsHours": [0.25, 0.5],
+    "description": "Include crunches, planks, and leg raises. Maintain proper form to engage the core effectively.",
+    "purpose": "Builds a stronger core and tones abdominal muscles.",
+    "categories": ["muscle building", "losing weight"]
+  },
+  {
+    "id": 7,
+    "name": "Shoulder Building",
+    "image": "/images/shoulder_building.jpg",
+    "durationOptionsHours": [0.5, 1],
+    "description": "Perform shoulder presses, lateral raises, and push-ups for targeted muscle activation.",
+    "purpose": "Improves shoulder strength and posture.",
+    "categories": ["muscle building"]
+  },
+  {
+    "id": 8,
+    "name": "Leg Workout",
+    "image": "/images/leg_workout.jpg",
+    "durationOptionsHours": [0.5, 1, 1.5],
+    "description": "Do squats, lunges, and calf raises. Use bodyweight or add resistance for more intensity.",
+    "purpose": "Strengthens lower body muscles and boosts mobility.",
+    "categories": ["muscle building", "endurance"]
+  },
+  {
+    "id": 9,
+    "name": "Swimming",
+    "image": "/images/swimming.jpg",
+    "durationOptionsHours": [0.5, 1, 2],
+    "description": "Swim laps using freestyle, backstroke, or breaststroke. Maintain steady breathing and smooth strokes.",
+    "purpose": "Full-body workout that improves endurance and lung capacity.",
+    "categories": ["endurance", "flexibility", "losing weight"]
+  },
+  {
+    "id": 10,
+    "name": "Pilates",
+    "image": "/images/pilates.jpg",
+    "durationOptionsHours": [0.5, 1],
+    "description": "Focus on controlled movements, balance, and breathing techniques using mats or reformers.",
+    "purpose": "Strengthens core and improves posture.",
+    "categories": ["flexibility", "muscle building"]
+  },
+  {
+    "id": 11,
+    "name": "HIIT (High Intensity Interval Training)",
+    "image": "/images/hiit.jpg",
+    "durationOptionsHours": [0.25, 0.5],
+    "description": "Alternate short bursts of intense exercises like sprints and burpees with brief rest periods.",
+    "purpose": "Burns calories fast and boosts metabolism.",
+    "categories": ["losing weight", "endurance"]
+  },
+  {
+    "id": 12,
+    "name": "Push-Ups",
+    "image": "/images/pushups.jpg",
+    "durationOptionsHours": [0.25, 0.5],
+    "description": "Lower and raise your body using your arms while keeping a straight posture.",
+    "purpose": "Builds chest, arms, and core strength.",
+    "categories": ["muscle building"]
+  },
+  {
+    "id": 13,
+    "name": "Pull-Ups",
+    "image": "/images/pullups.jpg",
+    "durationOptionsHours": [0.25, 0.5],
+    "description": "Hang on a bar and pull yourself up until your chin is above the bar.",
+    "purpose": "Strengthens back and biceps.",
+    "categories": ["muscle building"]
+  },
+  {
+    "id": 14,
+    "name": "Plank",
+    "image": "/images/plank.jpg",
+    "durationOptionsHours": [0.25, 0.5],
+    "description": "Hold a push-up position with your body straight, resting on forearms and toes.",
+    "purpose": "Builds endurance in abs, back, and shoulders.",
+    "categories": ["muscle building", "endurance"]
+  },
+  {
+    "id": 15,
+    "name": "Squats",
+    "image": "/images/squats.jpg",
+    "durationOptionsHours": [0.25, 0.5, 1],
+    "description": "Lower your body by bending knees and hips, then rise back up.",
+    "purpose": "Strengthens legs and core muscles.",
+    "categories": ["muscle building", "losing weight"]
+  },
+  {
+    "id": 16,
+    "name": "Lunges",
+    "image": "/images/lunges.jpg",
+    "durationOptionsHours": [0.25, 0.5, 1],
+    "description": "Step forward and lower your body until both knees are bent at 90 degrees, then return.",
+    "purpose": "Strengthens legs, glutes, and balance.",
+    "categories": ["muscle building", "flexibility"]
+  },
+  {
+    "id": 17,
+    "name": "Burpees",
+    "image": "/images/burpees.jpg",
+    "durationOptionsHours": [0.25, 0.5],
+    "description": "Start standing, drop into a push-up, jump up explosively, and repeat.",
+    "purpose": "Full-body exercise that boosts strength and stamina.",
+    "categories": ["endurance", "losing weight"]
+  },
+  {
+    "id": 18,
+    "name": "Weightlifting",
+    "image": "/images/weightlifting.jpg",
+    "durationOptionsHours": [0.5, 1, 2],
+    "description": "Lift weights with proper technique, focusing on compound lifts like bench press and deadlifts.",
+    "purpose": "Builds muscle mass and strength.",
+    "categories": ["muscle building"]
+  },
+  {
+    "id": 19,
+    "name": "Stretching",
+    "image": "/images/stretching.jpg",
+    "durationOptionsHours": [0.25, 0.5],
+    "description": "Perform static and dynamic stretches for major muscle groups.",
+    "purpose": "Improves flexibility and reduces injury risk.",
+    "categories": ["flexibility"]
+  },
+  {
+    "id": 20,
+    "name": "Mountain Climbers",
+    "image": "/images/mountain_climbers.jpg",
+    "durationOptionsHours": [0.25, 0.5],
+    "description": "Start in push-up position and quickly alternate bringing knees to chest.",
+    "purpose": "Increases core strength and burns calories.",
+    "categories": ["endurance", "losing weight"]
+  }
+]
