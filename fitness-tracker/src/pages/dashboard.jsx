@@ -23,7 +23,7 @@ export default function Dashboard() {
           {/* LEFT SECTION - IMAGE */}
           <aside className="flex flex-col items-center md:items-start text-center md:text-left space-y-6 md:col-span-1 py-10">
             <img
-              src="../public/exerciser.png"
+              src="../exerciser.png"
               alt="Exerciser"
               className="w-60 h-80 rounded-full border-red-500 shadow-lg"
             />
