@@ -1,16 +1,20 @@
-import { useState } from 'react'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/home";
+import Dashboard from "./pages/dashboard";
+import Goals from "./pages/goals";
+import LoginSignup  from "./pages/login";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div>
-      <h1>Fitness Tracker</h1>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/goals" element={<Goals />} />
+        <Route path="/login" element={<LoginSignup />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
