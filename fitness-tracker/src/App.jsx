@@ -7,6 +7,7 @@ import LoginSignup  from "./pages/login";
 import WorkOutForm from "./components/WorkOutForm";
 import GoalTracker from "./components/GoalTracker";
 import WorkOutList from "./components/WorkOutList";
+import WorkoutDetails from "./components/WorkOutDetails";
 function App() {
   return (
     <Router>
@@ -16,6 +17,7 @@ function App() {
         <Route path="/goals" element={<Goals />} />
         <Route path="/login" element={<LoginSignup />} />
         {/* <Route path="/workhistory" element={<WorkOutHistory />} /> */}
+        <Route path="/workout-details/:category" element={<WorkoutDetails />} />
         <Route path="/workoutform" element={<WorkOutForm />} />
         <Route path="/goals" element={<GoalTracker />} />
         <Route path="/workoutlist" element={<WorkOutList />} />

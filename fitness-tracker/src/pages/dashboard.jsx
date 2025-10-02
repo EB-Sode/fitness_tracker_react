@@ -63,7 +63,7 @@ export default function Dashboard() {
                   <li className="pb-2">🧘 Yoga – 45 mins</li>
                 </ul>
                 <Link
-                  to="/workouts"
+                  to="/WorkOutList"
                   className="text-red-400 hover:underline text-sm mt-3 inline-block"
                 >
                   View All Workouts →

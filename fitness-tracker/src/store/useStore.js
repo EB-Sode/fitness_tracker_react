@@ -1,34 +1,34 @@
 import { create } from "zustand";
+import api from "./services";
 
 const useStore = create((set) => ({
   workouts: [],
-  items: [],
+  exercises: [],
+  loading: false,
+  error: null,
 
-  // Add a new workout
+  // --- Workouts ---
   addWorkout: (workout) =>
-    set((state) => ({
-      workouts: [...state.workouts, workout],
-    })),
+    set((state) => ({ workouts: [...state.workouts, workout] })),
 
-  // Remove a workout
   removeWorkout: (id) =>
-    set((state) => ({
-      workouts: state.workouts.filter((w) => w.id !== id),
-    })),
+    set((state) => ({ workouts: state.workouts.filter((w) => w.id !== id) })),
 
-  // Clear all workouts
   clearWorkouts: () => set({ workouts: [] }),
 
-  // Load exercises from JSON
-  loadItems: async () => {
+  // --- API Exercises ---
+  fetchExercises: async (filters = { muscle: "biceps" }) => {
+    set({ loading: true, error: null });
     try {
-      const response = await fetch("/exercise.json");
-      const data = await response.json();
-      set({ items: data });
-    } catch (error) {
-      console.error("Error loading exercise data:", error);
+      const res = await api.get("/", { params: filters });
+      set({ exercises: res.data, loading: false });
+    } catch (err) {
+      console.error(err);
+      set({ error: "Failed to fetch exercises", loading: false });
     }
   },
+
+  clearError: () => set({ error: null }),
 }));
 
 export default useStore;

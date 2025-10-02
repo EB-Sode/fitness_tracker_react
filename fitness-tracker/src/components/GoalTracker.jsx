@@ -1,7 +1,7 @@
-import useWorkoutStore from "../store/useStore";
+import useStore from "../store/useStore";
 
 function GoalTracker() {
-  const workouts = useWorkoutStore((state) => state.workouts);
+  const workouts = useStore((state) => state.workouts);
 
   // Example: track weekly calorie goal
   const weeklyGoal = 2000;
