@@ -20,7 +20,7 @@ const useStore = create((set) => ({
   fetchExercises: async (filters = { muscle: "biceps" }) => {
     set({ loading: true, error: null });
     try {
-      const res = await api.get("/", { params: filters });
+      const res = await api.get("", { params: filters });
       set({ exercises: res.data, loading: false });
     } catch (err) {
       console.error(err);

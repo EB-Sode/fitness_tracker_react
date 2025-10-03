@@ -1,61 +1,133 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useStore from "../store/useStore";
-import api from "../store/services"; // your axios setup
 
 export default function WorkoutDetails() {
   const { category } = useParams();
-  const [workouts, setWorkouts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { exercises, fetchExercises, loading, error, addWorkout } = useStore();
 
-  const addWorkout = useStore((state) => state.addWorkout);
+  const [search, setSearch] = useState("");
+  const [difficulty, setDifficulty] = useState("all");
+  const [type, setType] = useState("all");
 
+  // Fetch all exercises once
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const res = await api.get("/", { params: { muscle: category } });
-        setWorkouts(res.data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    fetchExercises({});
+  }, [fetchExercises]);
 
-    fetchData();
-  }, [category]);
+  // Determine grouping key based on category
+  const groupedExercises = useMemo(() => {
+    if (!category) return { all: exercises };
 
-  if (loading) return <p className="text-center text-gray-300">Loading...</p>;
+    return exercises.reduce((groups, exercise) => {
+      let key = "Other";
+
+      if (category === "muscle") key = exercise.muscle || "Other";
+      else if (category === "type") key = exercise.type || "Other";
+      else if (category === "difficulty") key = exercise.difficulty || "Other";
+
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(exercise);
+      return groups;
+    }, {});
+  }, [category, exercises]);
+
+  // Filter function for search, type, and difficulty
+  const filterExercises = (exerciseList) => {
+    return exerciseList.filter((exercise) => {
+      const name = exercise.name?.toLowerCase() || "";
+      const exType = exercise.type?.toLowerCase() || "";
+      const exDifficulty = exercise.difficulty?.toLowerCase() || "";
+
+      const matchesSearch = name.includes(search.toLowerCase());
+      const matchesDifficulty =
+        difficulty === "all" || exDifficulty === difficulty.toLowerCase();
+      const matchesType = type === "all" || exType === type.toLowerCase();
+
+      return matchesSearch && matchesDifficulty && matchesType;
+    });
+  };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
-      <h2 className="text-2xl font-bold mb-6 capitalize text-red-400">
+    <div className="p-10">
+      <h1 className="text-3xl font-bold text-red-400 mb-6 capitalize">
         {category} Workouts
-      </h2>
+      </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {workouts.map((w) => (
-          <div
-            key={w.id}
-            className="bg-gray-800 p-4 rounded-lg shadow hover:shadow-lg transition"
-          >
-            <img
-              src={w.image || "https://via.placeholder.com/300"}
-              alt={w.name}
-              className="rounded-lg mb-4"
-            />
-            <h3 className="text-lg font-semibold mb-2">{w.name}</h3>
-            <p className="text-sm text-gray-400 mb-4">{w.instructions}</p>
-            <button
-              onClick={() => addWorkout(w)}
-              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg w-full"
-            >
-              ➕ Add to My Workouts
-            </button>
-          </div>
-        ))}
+      {/* Search & Filters */}
+      <div className="flex flex-col md:flex-row gap-4 mb-8">
+        <input
+          type="text"
+          placeholder="Search exercises..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="px-4 py-2 rounded-lg bg-gray-700 text-white w-full md:w-1/3 focus:outline-none"
+        />
+
+        <select
+          value={difficulty}
+          onChange={(e) => setDifficulty(e.target.value)}
+          className="px-4 py-2 rounded-lg bg-gray-700 text-white w-full md:w-1/4 focus:outline-none"
+        >
+          <option value="all">All Difficulties</option>
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="expert">Expert</option>
+        </select>
+
+        <select
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+          className="px-4 py-2 rounded-lg bg-gray-700 text-white w-full md:w-1/4 focus:outline-none"
+        >
+          <option value="all">All Types</option>
+          <option value="cardio">Cardio</option>
+          <option value="strength">Strength</option>
+          <option value="stretching">Stretching</option>
+          <option value="powerlifting">Powerlifting</option>
+        </select>
       </div>
+
+      {loading && <p className="text-gray-400">Loading...</p>}
+      {error && <p className="text-red-400">{error}</p>}
+
+      {/* Display grouped exercises */}
+      {Object.keys(groupedExercises).map((groupKey) => {
+        const filtered = filterExercises(groupedExercises[groupKey]);
+        if (filtered.length === 0) return null;
+
+        return (
+          <div key={groupKey} className="mb-10">
+            <h2 className="text-2xl font-semibold text-white mb-4 capitalize">
+              {groupKey}
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {filtered.map((exercise, i) => (
+                <div
+                  key={i}
+                  className="bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition"
+                >
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    {exercise.name}
+                  </h3>
+                  <p className="text-gray-400 text-sm">Type: {exercise.type}</p>
+                  <p className="text-gray-400 text-sm">Muscle: {exercise.muscle}</p>
+                  <p className="text-gray-400 text-sm">
+                    Difficulty: {exercise.difficulty}
+                  </p>
+                  <button
+                    onClick={() => addWorkout(exercise)}
+                    className="mt-4 px-4 py-2 bg-red-500 rounded-md text-white hover:bg-red-600 transition"
+                  >
+                    Add to My Workouts
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
+

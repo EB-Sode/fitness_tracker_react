@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { Link } from "react-router-dom";
 import useStore from "../store/useStore";
+import WorkoutDetails from "../components/WorkOutDetails";
 
 
 export default function Home() {
@@ -155,7 +156,7 @@ export default function Home() {
               <h2 className="text-xl font-bold text-white mb-3">Search by Name</h2>
               <p className="text-gray-400 text-sm mb-4">Find specific exercises by their name.</p>
               <Link
-                to="/filters/name"
+                to="/workout-details/name"
                 className="text-red-400 hover:underline font-semibold"
               >
                 Explore →
@@ -169,7 +170,7 @@ export default function Home() {
                 Cardio, strength, stretching, and more.
               </p>
               <Link
-                to="/filters/type"
+                to="/workout-details/type"
                 className="text-red-400 hover:underline font-semibold"
               >
                 Explore →
@@ -183,7 +184,7 @@ export default function Home() {
                 Biceps, chest, abs, legs, and more.
               </p>
               <Link
-                to="/filters/muscle"
+                to="/workout-details/muscle"
                 className="text-red-400 hover:underline font-semibold"
               >
                 Explore →
@@ -197,7 +198,7 @@ export default function Home() {
                 Beginner, intermediate, or expert routines.
               </p>
               <Link
-                to="/filters/difficulty"
+                to="/workout-details/difficulty"
                 className="text-red-400 hover:underline font-semibold"
               >
                 Explore →
