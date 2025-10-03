@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { Link } from "react-router-dom";
 import useStore from "../store/useStore";
-import WorkoutDetails from "../components/WorkOutDetails";
 
 
 export default function Home() {
@@ -10,7 +9,7 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    fetchExercises({ muscle: "biceps" });
+    fetchExercises({ muscle: "chest" });
   }, [fetchExercises]);
 
   return (
@@ -37,7 +36,7 @@ export default function Home() {
         </Link>
 
         <Link
-          to="/workoutform"
+          to="/workout"
           className="px-4 py-2 rounded-md hover:bg-gray-700 transition"
         >
           Add Workout

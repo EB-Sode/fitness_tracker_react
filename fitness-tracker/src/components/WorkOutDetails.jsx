@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import useStore from "../store/useStore";
+import ExerciseCard from "./ExerciseCard";
 
 export default function WorkoutDetails() {
   const { category } = useParams();
-  const { exercises, fetchExercises, loading, error, addWorkout } = useStore();
+  const { exercises, fetchExercises, loading, error } = useStore();
 
   const [search, setSearch] = useState("");
   const [difficulty, setDifficulty] = useState("all");
@@ -101,27 +102,9 @@ export default function WorkoutDetails() {
             <h2 className="text-2xl font-semibold text-white mb-4 capitalize">
               {groupKey}
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {filtered.map((exercise, i) => (
-                <div
-                  key={i}
-                  className="bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition"
-                >
-                  <h3 className="text-lg font-semibold text-white mb-2">
-                    {exercise.name}
-                  </h3>
-                  <p className="text-gray-400 text-sm">Type: {exercise.type}</p>
-                  <p className="text-gray-400 text-sm">Muscle: {exercise.muscle}</p>
-                  <p className="text-gray-400 text-sm">
-                    Difficulty: {exercise.difficulty}
-                  </p>
-                  <button
-                    onClick={() => addWorkout(exercise)}
-                    className="mt-4 px-4 py-2 bg-red-500 rounded-md text-white hover:bg-red-600 transition"
-                  >
-                    Add to My Workouts
-                  </button>
-                </div>
+                <ExerciseCard key={i} exercise={exercise} />
               ))}
             </div>
           </div>

@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import api from "./services";
 
+const CACHE_KEY = "exercises_cache";
+
 const useStore = create((set) => ({
   workouts: [],
   exercises: [],
@@ -9,19 +11,45 @@ const useStore = create((set) => ({
 
   // --- Workouts ---
   addWorkout: (workout) =>
-    set((state) => ({ workouts: [...state.workouts, workout] })),
+    set((state) => {
+      const day = workout.day || "Unassigned"; // default if no day provided
+      return {
+        workoutList: {
+          ...state.workoutList,
+          [day]: [...(state.workoutList[day] || []), workout],
+        },
+      };
+    }),
 
-  removeWorkout: (id) =>
-    set((state) => ({ workouts: state.workouts.filter((w) => w.id !== id) })),
+  removeWorkout: (day, id) =>
+    set((state) => ({
+      workoutList: {
+        ...state.workoutList,
+        [day]: state.workoutList[day].filter((w) => w.id !== id),
+      },
+    })),
 
-  clearWorkouts: () => set({ workouts: [] }),
+  clearWorkouts: () => set({ workoutList: {} }),
 
-  // --- API Exercises ---
-  fetchExercises: async (filters = { muscle: "biceps" }) => {
+  // --- API Exercises with localStorage caching ---
+  fetchExercises: async (filters = {}) => {
     set({ loading: true, error: null });
+
     try {
-      const res = await api.get("", { params: filters });
+      // Check if cache exists
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        set({ exercises: parsed, loading: false });
+        return;
+      }
+
+      // Otherwise fetch from API
+      const res = await api.get("/", { params: filters });
       set({ exercises: res.data, loading: false });
+
+      // Save to localStorage
+      localStorage.setItem(CACHE_KEY, JSON.stringify(res.data));
     } catch (err) {
       console.error(err);
       set({ error: "Failed to fetch exercises", loading: false });
@@ -29,6 +57,21 @@ const useStore = create((set) => ({
   },
 
   clearError: () => set({ error: null }),
+
+  // --- Refresh cache manually ---
+  refreshExercises: async (filters = {}) => {
+    set({ loading: true, error: null });
+    try {
+      const res = await api.get("/", { params: filters });
+      set({ exercises: res.data, loading: false });
+
+      // Replace cache
+      localStorage.setItem(CACHE_KEY, JSON.stringify(res.data));
+    } catch (err) {
+      console.error(err);
+      set({ error: "Failed to refresh exercises", loading: false });
+    }
+  },
 }));
 
 export default useStore;
