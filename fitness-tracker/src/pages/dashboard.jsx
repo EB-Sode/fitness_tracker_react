@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from "recharts";
+import WorkoutHistory from "../components/WorkOutHistory";
 
 const data = [
   { day: "Mon", workouts: 2 },

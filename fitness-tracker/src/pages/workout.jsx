@@ -1,6 +1,7 @@
 import { useState } from "react";
 import WorkoutForm from "../components/WorkoutForm";
 import WorkoutList from "../components/WorkoutList";
+import Layout from "../components/Layout";
 
 export default function Workout() {
   const [workouts, setWorkouts] = useState([]);
@@ -11,6 +12,7 @@ export default function Workout() {
   };
 
   return (
+    <Layout>
     <div className="p-10">
       <h1 className="text-3xl font-bold text-red-400 mb-6">My Workouts</h1>
 
@@ -22,5 +24,6 @@ export default function Workout() {
       {/* Workout list categorized by day */}
       <WorkoutList workouts={workouts} />
     </div>
+    </Layout>
   );
 }

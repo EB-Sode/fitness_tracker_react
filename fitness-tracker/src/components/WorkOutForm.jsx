@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import useWorkoutStore from "../store/useStore";
-import Layout from "./Layout";
 
 function WorkoutForm() {
   const addWorkout = useWorkoutStore((state) => state.addWorkout);
@@ -64,7 +63,6 @@ function WorkoutForm() {
   };
 
   return (
-    <Layout>
       <form onSubmit={handleSubmit} className="space-y-3 p-4 bg-inherit shadow rounded max-w-lg mx-auto">
         {/* Category Dropdown */}
         <select
@@ -122,7 +120,6 @@ function WorkoutForm() {
           Add Workout
         </button>
       </form>
-    </Layout>
   );
 }
 

@@ -3,10 +3,11 @@ import Home from "./pages/home";
 import Dashboard from "./pages/dashboard";
 import Goals from "./pages/goals";
 import LoginSignup  from "./pages/login";
-// import WorkOutHistory from "./components/WorkoutHistory";
+import Workout from "./pages/workout";
+
 import GoalTracker from "./components/GoalTracker";
 import WorkoutDetails from "./components/WorkOutDetails";
-import Workout from "./pages/workout";
+import WorkoutHistory from "./components/WorkOutHistory";
 function App() {
   return (
     <Router>
@@ -15,7 +16,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/goals" element={<Goals />} />
         <Route path="/login" element={<LoginSignup />} />
-        {/* <Route path="/workhistory" element={<WorkoutHistory />} /> */}
+        <Route path="/workhistory" element={<WorkoutHistory />} />
         <Route path="/workout-details/:category" element={<WorkoutDetails />} />
         <Route path="/workout-details/:category/:value" element={<WorkoutDetails />} />
         <Route path="/goals" element={<GoalTracker />} />

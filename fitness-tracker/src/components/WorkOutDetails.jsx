@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import useStore from "../store/useStore";
 import ExerciseCard from "./ExerciseCard";
+import { Link } from "react-router-dom";
 
 export default function WorkoutDetails() {
   const { category } = useParams();
@@ -51,9 +52,26 @@ export default function WorkoutDetails() {
 
   return (
     <div className="p-10">
-      <h1 className="text-3xl font-bold text-red-400 mb-6 capitalize">
+        {/* Navigation Buttons */}
+        <div className="flex justify-between mb-6">
+          <Link
+            to="/"
+            className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600"
+          >
+            ← Back to Home
+          </Link>
+          <Link
+            to="/workout"
+            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            Go to My Workouts →
+          </Link>
+        </div>
+
+        <h1 className="text-3xl font-bold text-red-400 mb-6 capitalize">
         {category} Workouts
-      </h1>
+        </h1>
+      
 
       {/* Search & Filters */}
       <div className="flex flex-col md:flex-row gap-4 mb-8">

@@ -4,10 +4,12 @@ import api from "./services";
 const CACHE_KEY = "exercises_cache";
 
 const useStore = create((set) => ({
-  workouts: [],
-  exercises: [],
-  loading: false,
-  error: null,
+  workoutList: {},  // grouped by day
+  workoutHistory: [], // completed workouts
+  // workouts: [],
+  // exercises: [],
+  // loading: false,
+  // error: null,
 
   // --- Workouts ---
   addWorkout: (workout) =>
@@ -29,9 +31,29 @@ const useStore = create((set) => ({
       },
     })),
 
-  clearWorkouts: () => set({ workoutList: {} }),
+  markWorkoutDone: (day, workoutId) =>
+    set((state) => {
+      const workout = state.workoutList[day]?.find((w) => w.id === workoutId);
+      if (!workout) return {};
 
-  // --- API Exercises with localStorage caching ---
+      return {
+        // remove from active list
+        workoutList: {
+          ...state.workoutList,
+          [day]: state.workoutList[day].filter((w) => w.id !== workoutId),
+        },
+        // add to history
+        workoutHistory: [
+          ...state.workoutHistory,
+          { ...workout, completedAt: new Date().toISOString() },
+        ],
+      };
+    }),
+
+  clearWorkouts: () => set({ workoutList: {}, workoutHistory: [] }),
+
+  //---------------------------------------------------
+  // --- API Exercises with localStorage caching ---------------------
   fetchExercises: async (filters = {}) => {
     set({ loading: true, error: null });
 

@@ -7,7 +7,8 @@ function ExerciseCard({ exercise }) {
   const [duration, setDuration] = useState("");
 
   const handleAdd = () => {
-    if (!duration) return; // prevent adding empty duration
+    if (!duration) return; // prevent empty duration
+
     addWorkout({
       id: Date.now(),
       exercise: exercise.name,
@@ -17,15 +18,16 @@ function ExerciseCard({ exercise }) {
       duration: parseInt(duration),
       day,
     });
-    setDuration(""); // reset duration
+
+    setDuration(""); // reset
   };
 
   return (
     <div className="bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
       <h3 className="text-lg font-semibold text-white mb-2">{exercise.name}</h3>
-      <p className="text-gray-400 text-sm">Type: {exercise.type}</p>
-      <p className="text-gray-400 text-sm">Muscle: {exercise.muscle}</p>
-      <p className="text-gray-400 text-sm">Difficulty: {exercise.difficulty}</p>
+  <p className="text-gray-400 text-sm">
+        {exercise.type} • {exercise.muscle} • {exercise.difficulty}
+      </p>
 
       {/* Day selector */}
       <select

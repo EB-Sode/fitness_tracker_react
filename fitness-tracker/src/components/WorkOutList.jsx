@@ -1,29 +1,22 @@
-import useWorkoutStore from "../store/useStore";
+import useStore from "../store/useStore";
 
 function WorkoutList() {
-  const workouts = useWorkoutStore((state) => state.workouts);
-  const removeWorkout = useWorkoutStore((state) => state.removeWorkout);
-
-  // Group workouts by day
-  const groupedByDay = workouts.reduce((groups, workout) => {
-    const day = workout.day || "Unassigned";
-    if (!groups[day]) groups[day] = [];
-    groups[day].push(workout);
-    return groups;
-  }, {});
+  const workoutList = useStore((state) => state.workoutList);
+  const removeWorkout = useStore((state) => state.removeWorkout);
+  const markWorkoutDone = useStore((state) => state.markWorkoutDone);
 
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold text-red-400 mb-6">My Workouts</h2>
 
-      {Object.keys(groupedByDay).length === 0 ? (
+      {Object.keys(workoutList || {}).length === 0 ? (
         <p className="text-gray-400">No workouts added yet.</p>
       ) : (
-        Object.keys(groupedByDay).map((day) => (
+        Object.keys(workoutList).map((day) => (
           <div key={day} className="mb-8">
             <h3 className="text-xl font-semibold text-white mb-4">{day}</h3>
             <div className="space-y-3">
-              {groupedByDay[day].map((workout) => (
+              {workoutList[day].map((workout) => (
                 <div
                   key={workout.id}
                   className="bg-gray-800 p-4 rounded-lg shadow flex justify-between items-center"
@@ -37,12 +30,20 @@ function WorkoutList() {
                       Duration: {workout.duration} mins
                     </p>
                   </div>
-                  <button
-                    onClick={() => removeWorkout(workout.id)}
-                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
-                  >
-                    Remove
-                  </button>
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => markWorkoutDone(day, workout.id)}
+                      className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 transition"
+                    >
+                      Done ✅
+                    </button>
+                    <button
+                      onClick={() => removeWorkout(workout.id)}
+                      className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
