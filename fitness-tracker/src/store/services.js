@@ -1,9 +1,10 @@
+// services.js
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: "https://wger.de/api/v2",  // ✅ Base Wger API endpoint
   headers: {
-    "X-Api-Key": import.meta.env.VITE_API_KEY,
+    Authorization: `Token ${import.meta.env.VITE_WGER_API_KEY}`, // Or your API key directly for now
   },
 });
 

@@ -1,32 +1,51 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import useStore from "../store/useStore";
 import ExerciseCard from "./ExerciseCard";
-import { Link } from "react-router-dom";
 
 export default function WorkoutDetails() {
   const { category } = useParams();
-  const { exercises, fetchExercises, loading, error } = useStore();
+  const {
+    exercises,
+    fetchExercises,
+    fetchMuscles,
+    fetchEquipment,
+    refreshExercises,
+    muscles,
+    equipment,
+    loading,
+    error,
+  } = useStore();
 
   const [search, setSearch] = useState("");
-  const [difficulty, setDifficulty] = useState("all");
-  const [type, setType] = useState("all");
+  const [selectedEquipment, setSelectedEquipment] = useState("all");
+  const [selectedMuscle, setSelectedMuscle] = useState("all");
 
-  // Fetch all exercises once
+  // Fetch everything once
   useEffect(() => {
-    fetchExercises({});
-  }, [fetchExercises]);
+    fetchExercises();
+    fetchMuscles();
+    fetchEquipment();
+  }, [fetchExercises, fetchMuscles, fetchEquipment]);
 
-  // Determine grouping key based on category
   const groupedExercises = useMemo(() => {
+  // ✅ Prevent crash if exercises is not an array
+    if (!Array.isArray(exercises) || exercises.length === 0) return {};
+
+  // ✅ Default: show all exercises when no category is selected
     if (!category) return { all: exercises };
 
+    // ✅ Group exercises dynamically by category
     return exercises.reduce((groups, exercise) => {
       let key = "Other";
 
-      if (category === "muscle") key = exercise.muscle || "Other";
-      else if (category === "type") key = exercise.type || "Other";
-      else if (category === "difficulty") key = exercise.difficulty || "Other";
+      if (category === "category") key = exercise.category?.name || "Other";
+      else if (category === "muscle")
+        key =
+          exercise.muscles?.[0]?.name ||
+          exercise.muscles_secondary?.[0]?.name || "Other";
+      else if (category === "equipment")
+        key = exercise.equipment?.[0]?.name || "Bodyweight";
 
       if (!groups[key]) groups[key] = [];
       groups[key].push(exercise);
@@ -34,46 +53,62 @@ export default function WorkoutDetails() {
     }, {});
   }, [category, exercises]);
 
-  // Filter function for search, type, and difficulty
   const filterExercises = (exerciseList) => {
     return exerciseList.filter((exercise) => {
       const name = exercise.name?.toLowerCase() || "";
-      const exType = exercise.type?.toLowerCase() || "";
-      const exDifficulty = exercise.difficulty?.toLowerCase() || "";
-
       const matchesSearch = name.includes(search.toLowerCase());
-      const matchesDifficulty =
-        difficulty === "all" || exDifficulty === difficulty.toLowerCase();
-      const matchesType = type === "all" || exType === type.toLowerCase();
 
-      return matchesSearch && matchesDifficulty && matchesType;
+      const matchesEquipment =
+        selectedEquipment === "all" ||
+        exercise.equipment?.some(
+          (e) =>
+            e.name.toLowerCase() === selectedEquipment.toLowerCase()
+        );
+
+      const matchesMuscle =
+        selectedMuscle === "all" ||
+        exercise.muscles?.some(
+          (m) => m.name.toLowerCase() === selectedMuscle.toLowerCase()
+        );
+
+      return matchesSearch && matchesEquipment && matchesMuscle;
     });
   };
 
   return (
     <div className="p-10">
-        {/* Navigation Buttons */}
-        <div className="flex justify-between mb-6">
-          <Link
-            to="/"
-            className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600"
-          >
-            ← Back to Home
-          </Link>
-          <Link
-            to="/workout"
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-          >
-            Go to My Workouts →
-          </Link>
+      <div className="flex justify-between max-w-6xl mx-auto mb-6">
+        <Link
+          to="/"
+          className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600"
+        >
+          ← Back to Home
+        </Link>
+        <div>
+        <Link
+          to="/workout"
+          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+        >
+          Go to My Workouts →
+        </Link>
+      <button
+          onClick={() => refreshExercises()}
+          disabled={loading}
+          className={`px-4 py-2 rounded text-white ${
+            loading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+          }`}
+        >
+        {loading ? "Refreshing..." : "Refresh Data"}
+      </button>
         </div>
 
-        <h1 className="text-3xl font-bold text-red-400 mb-6 capitalize">
-        {category} Workouts
-        </h1>
-      
+      </div>
 
-      {/* Search & Filters */}
+      <h1 className="text-3xl font-bold text-red-400 mb-6 capitalize">
+        {category} Workouts
+      </h1>
+
+      {/* Filters */}
       <div className="flex flex-col md:flex-row gap-4 mb-8">
         <input
           type="text"
@@ -84,33 +119,35 @@ export default function WorkoutDetails() {
         />
 
         <select
-          value={difficulty}
-          onChange={(e) => setDifficulty(e.target.value)}
+          value={selectedEquipment}
+          onChange={(e) => setSelectedEquipment(e.target.value)}
           className="px-4 py-2 rounded-lg bg-gray-700 text-white w-full md:w-1/4 focus:outline-none"
         >
-          <option value="all">All Difficulties</option>
-          <option value="beginner">Beginner</option>
-          <option value="intermediate">Intermediate</option>
-          <option value="expert">Expert</option>
+          <option value="all">All Equipment</option>
+          {equipment.map((eq) => (
+            <option key={eq.id} value={eq.name}>
+              {eq.name}
+            </option>
+          ))}
         </select>
 
         <select
-          value={type}
-          onChange={(e) => setType(e.target.value)}
+          value={selectedMuscle}
+          onChange={(e) => setSelectedMuscle(e.target.value)}
           className="px-4 py-2 rounded-lg bg-gray-700 text-white w-full md:w-1/4 focus:outline-none"
         >
-          <option value="all">All Types</option>
-          <option value="cardio">Cardio</option>
-          <option value="strength">Strength</option>
-          <option value="stretching">Stretching</option>
-          <option value="powerlifting">Powerlifting</option>
+          <option value="all">All Muscles</option>
+          {muscles.map((m) => (
+            <option key={m.id} value={m.name}>
+              {m.name}
+            </option>
+          ))}
         </select>
       </div>
 
       {loading && <p className="text-gray-400">Loading...</p>}
       {error && <p className="text-red-400">{error}</p>}
 
-      {/* Display grouped exercises */}
       {Object.keys(groupedExercises).map((groupKey) => {
         const filtered = filterExercises(groupedExercises[groupKey]);
         if (filtered.length === 0) return null;
@@ -131,4 +168,3 @@ export default function WorkoutDetails() {
     </div>
   );
 }
-

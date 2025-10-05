@@ -1,99 +1,188 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import api from "./services";
 
 const CACHE_KEY = "exercises_cache";
 
-const useStore = create((set) => ({
-  workoutList: {},  // grouped by day
-  workoutHistory: [], // completed workouts
-  // workouts: [],
-  // exercises: [],
-  // loading: false,
-  // error: null,
+const useStore = create(
+  persist(
+      (set) => ({
+        workoutList: {},  // grouped by day
+        workoutHistory: [], // completed workouts
+        muscles: [],
+        exercises: [],
+        equipment: [],
+        images: [],
+        loading: false,
+        error: null,
 
-  // --- Workouts ---
-  addWorkout: (workout) =>
-    set((state) => {
-      const day = workout.day || "Unassigned"; // default if no day provided
-      return {
-        workoutList: {
-          ...state.workoutList,
-          [day]: [...(state.workoutList[day] || []), workout],
-        },
-      };
-    }),
+      // --- Workouts ---
+      // --- Workouts ---
+    addWorkout: (workout) => {
+        if (!workout.exercise) {
+          console.warn("⚠️ Cannot add workout without exercise name:", workout);
+          return;
+        }
 
-  removeWorkout: (day, id) =>
-    set((state) => ({
-      workoutList: {
-        ...state.workoutList,
-        [day]: state.workoutList[day].filter((w) => w.id !== id),
+        set((state) => {
+          const day = workout.day || "Unassigned";
+          const updatedDayList = [...(state.workoutList[day] || []), workout];
+
+          const newWorkoutList = {
+            ...state.workoutList,
+            [day]: updatedDayList,
+          };
+
+          console.log("✅ Workout added:", workout);
+          console.log("📘 Updated List:", newWorkoutList);
+
+          return { workoutList: newWorkoutList };
+        });
       },
-    })),
 
-  markWorkoutDone: (day, workoutId) =>
-    set((state) => {
-      const workout = state.workoutList[day]?.find((w) => w.id === workoutId);
-      if (!workout) return {};
+      removeWorkout: (day, workoutId) => {
+        set((state) => {
+          if (!state.workoutList[day]) return {};
 
-      return {
-        // remove from active list
-        workoutList: {
-          ...state.workoutList,
-          [day]: state.workoutList[day].filter((w) => w.id !== workoutId),
-        },
-        // add to history
-        workoutHistory: [
-          ...state.workoutHistory,
-          { ...workout, completedAt: new Date().toISOString() },
-        ],
-      };
-    }),
+          const updatedDayList = state.workoutList[day].filter((w) => w.id !== workoutId);
+          const newWorkoutList = {
+            ...state.workoutList,
+            [day]: updatedDayList,
+          };
 
-  clearWorkouts: () => set({ workoutList: {}, workoutHistory: [] }),
+          console.log(`🗑 Removed workout with id ${workoutId} from ${day}`);
+          console.log("📘 Updated List:", newWorkoutList);
 
-  //---------------------------------------------------
-  // --- API Exercises with localStorage caching ---------------------
-  fetchExercises: async (filters = {}) => {
-    set({ loading: true, error: null });
+          return { workoutList: newWorkoutList };
+        });
+      },
 
-    try {
-      // Check if cache exists
-      const cached = localStorage.getItem(CACHE_KEY);
-      if (cached) {
-        const parsed = JSON.parse(cached);
-        set({ exercises: parsed, loading: false });
-        return;
+      markWorkoutDone: (day, workoutId) => {
+        set((state) => {
+          const workout = state.workoutList[day]?.find((w) => w.id === workoutId);
+          if (!workout) return {};
+
+          const updatedDayList = state.workoutList[day].filter((w) => w.id !== workoutId);
+          const newWorkoutList = {
+            ...state.workoutList,
+            [day]: updatedDayList,
+          };
+
+          const updatedHistory = [
+            ...state.workoutHistory,
+            { ...workout, completedAt: new Date().toISOString() },
+          ];
+
+          console.log(`✅ Marked workout ${workout.exercise} as done for ${day}`);
+          console.log("📘 Updated List:", newWorkoutList);
+          console.log("📚 Updated History:", updatedHistory);
+
+          return { workoutList: newWorkoutList, workoutHistory: updatedHistory };
+        });
+      },
+
+    clearWorkouts: () => set({ workoutList: {}, workoutHistory: [] }),
+
+    //-----------------------------------------------------
+    // --- API Exercises with localStorage caching --------
+    fetchExercises: async (filters = {}) => {
+      set({ loading: true, error: null });
+
+      try {
+        // Check if cache exists and is recent (less than 10 days old)
+        const cacheKey = `${CACHE_KEY}_${JSON.stringify(filters)}`;
+        const cached = localStorage.getItem(cacheKey);
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          const cacheTime = localStorage.getItem(`${CACHE_KEY}_timestamp`);
+          const isExpired = !cacheTime || Date.now() - Number(cacheTime) > 24 * 10 * 60 * 60 * 1000; // 10 days
+
+          if (!isExpired) {
+            set({ exercises: parsed, loading: false });
+            return;
+          }
+        }
+
+        const res = await api.get("/exerciseinfo/", {
+          params: { limit: 20, language: 2, ...filters },
+        });
+
+          // ✅ Ensure exercises is always an array
+        const exercises = Array.isArray(res.data)
+          ? res.data
+          : Array.isArray(res.data.results)
+          ? res.data.results
+          : [];
+
+        localStorage.setItem(CACHE_KEY, JSON.stringify(exercises));
+        localStorage.setItem(`${CACHE_KEY}_timestamp`, Date.now().toString());
+
+        set({ exercises, loading: false });
+      } catch (err) {
+        console.error("❌ Error fetching exercises:", err);
+        set({ error: "Failed to fetch exercises", loading: false });
       }
+    },
 
-      // Otherwise fetch from API
-      const res = await api.get("/", { params: filters });
-      set({ exercises: res.data, loading: false });
+    // --- Fetch Muscles
+    fetchMuscles: async () => {
+      try {
+        const res = await api.get("/muscle/");
+        set({ muscles: res.data.results });
+      } catch (err) {
+        console.error("Error fetching muscles:", err);
+      }
+    },
 
-      // Save to localStorage
-      localStorage.setItem(CACHE_KEY, JSON.stringify(res.data));
-    } catch (err) {
-      console.error(err);
-      set({ error: "Failed to fetch exercises", loading: false });
-    }
+    // --- Fetch Equipment
+    fetchEquipment: async () => {
+      try {
+        const res = await api.get("/equipment/");
+        set({ equipment: res.data.results });
+      } catch (err) {
+        console.error("Error fetching equipment:", err);
+      }
+    },
+
+    fetchImages: async () => {
+      try {
+        const res = await api.get("/exerciseimage/", { params: { limit: 200 } });
+        set({ images: res.data.results });
+      } catch (err) {
+        console.error("Error fetching images", err);
+      }
   },
+    clearError: () => set({ error: null }),
 
-  clearError: () => set({ error: null }),
+      // --- Refresh cache manually ---
+    refreshExercises: async (filters = {}) => {
+      set({ loading: true, error: null });
+      try {
+        const res = await api.get("/exerciseinfo/", { params: { limit: 20, language: 2, ...filters } });
 
-  // --- Refresh cache manually ---
-  refreshExercises: async (filters = {}) => {
-    set({ loading: true, error: null });
-    try {
-      const res = await api.get("/", { params: filters });
-      set({ exercises: res.data, loading: false });
+        // ✅ Handle both array and paginated responses
+        const exercises = Array.isArray(res.data)
+          ? res.data
+          : Array.isArray(res.data.results)
+          ? res.data.results
+          : [];
 
-      // Replace cache
-      localStorage.setItem(CACHE_KEY, JSON.stringify(res.data));
-    } catch (err) {
-      console.error(err);
-      set({ error: "Failed to refresh exercises", loading: false });
+        set({ exercises, loading: false });
+
+        // ✅ Replace cache
+        localStorage.setItem(CACHE_KEY, JSON.stringify(exercises));
+        localStorage.setItem(`${CACHE_KEY}_timestamp`, Date.now().toString());
+      } catch (err) {
+        console.error("❌ Refresh error:", err);
+        set({ error: "Failed to refresh exercises", loading: false });
+      }
+    },
+    }),
+    {
+      name: "workout-storage", // key name in localStorage
+      partialize: (state) => ({ workoutList: state.workoutList }), //Store only workoutList
     }
-  },
-}));
+  )
+);
 
 export default useStore;
