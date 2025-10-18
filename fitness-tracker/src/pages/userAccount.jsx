@@ -21,10 +21,10 @@ export default function AccountPage() {
   return (
     <div>
     <Header />
-    <div className="min-h-screen w-full flex flex-col md:flex-row bg-red-900 dark:bg-gray-900 transition-colors mt-20">
+    <div className="min-h-screen w-full flex flex-col md:flex-row bg-red-200 dark:bg-gradient-to-r from-red-900 to-red-700 transition-colors mt-20">
       
       {/* Sidebar Navigation */}
-      <aside className="w-full md:w-1/4 bg-white dark:bg-gray-800 shadow-lg">
+      <aside className="w-full md:w-1/4 bg-white dark:bg-red-950 shadow-lg">
         <div className="p-6">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-8 text-center md:text-left">
             My Account

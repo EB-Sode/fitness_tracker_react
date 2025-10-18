@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 
 export default function Services() {
   return (
-    <div className="bg-red-800 min-h-screen">
+    <div className=" flex-grow mx-auto bg-red-800 min-h-screen max-w-6xl mt-10">
       {/* Hero Header */}
-      <section className="text-center py-16 bg-gradient-to-r from-red-800 to-red-500 text-white">
+      <section className="text-center py-16 bg-gradient-to-r from-red-900 to-red-700 text-white">
         <div className="flex justify-between mx-20">
         <h1 className="text-xl font-bold text-white">🏋️ Fitness Tracker</h1>
         
@@ -16,7 +16,7 @@ export default function Services() {
       
         <Link
           to="/"
-          className="px-2 py-4 bg-red-700 text-white rounded hover:bg-gray-600"
+          className="px-1 py-0.5 text-sm rounded text-white hover:underline"
         >
           ← Back to Home
         </Link>

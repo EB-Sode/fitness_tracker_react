@@ -23,26 +23,26 @@ export default function ContactUs() {
   ];
 
   return (
-    <section className="py-16 bg-gray-600 text-center" id="contact">
+    <section className="py-16 bg-gradient-to-r from-red-900 to-red-700 text-center" id="contact">
       <h2 className="text-4xl font-bold text-blue-200 mb-10">Contact Us</h2>
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6 mb-12">
         {coaches.map((coach, index) => (
           <div
             key={index}
-            className="bg-gray-50 p-6 rounded-2xl shadow-md hover:shadow-lg transition duration-300"
+            className="bg-red-200 p-6 rounded-2xl shadow-md hover:shadow-lg transition duration-300"
           >
             <img
               src={coach.image}
               alt={coach.name}
               className="w-32 h-32 mx-auto rounded-full object-cover mb-4"
             />
-            <h3 className="text-xl font-semibold text-gray-700">{coach.name}</h3>
+            <h3 className="text-xl text-blue-700 font-semibold">{coach.name}</h3>
           </div>
         ))}
       </div>
 
-      <div className="text-red-400">
+      <div className="text-blue-200">
         <p className="text-lg">
           📞 +234 800 111 2222 &nbsp; | &nbsp; +234 900 333 4444
         </p>

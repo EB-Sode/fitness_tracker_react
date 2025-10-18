@@ -26,7 +26,7 @@ export default function Profile() {
 
   return (
 
-    <div className="max-w-md mx-auto mt-10 bg-gray-900 p-6 rounded-2xl shadow-lg text-gray-100">
+    <div className="max-w-md mx-auto mt-10 bg-gray-700 p-6 rounded-2xl shadow-lg text-gray-100">
       <h2 className="text-2xl font-bold text-center text-red-400 mb-6">
         Profile
       </h2>
@@ -34,7 +34,7 @@ export default function Profile() {
       <div className="space-y-3">
         {/* Username */}
         <div>
-          <label className="block text-gray-400 text-sm">Username</label>
+          <label className="block text-gray-400 text-md">Username</label>
           {isEditing ? (
             <input
               name="username"
@@ -49,7 +49,7 @@ export default function Profile() {
 
         {/* Email */}
         <div>
-          <label className="block text-gray-400 text-sm">Email</label>
+          <label className="block text-gray-400 text-md">Email</label>
           {isEditing ? (
             <input
               name="email"
@@ -64,7 +64,7 @@ export default function Profile() {
 
         {/* Age */}
         <div>
-          <label className="block text-gray-400 text-sm">Age</label>
+          <label className="block text-gray-400 text-md">Age</label>
           {isEditing ? (
             <input
               type="number"
@@ -80,7 +80,7 @@ export default function Profile() {
 
         {/* Weight */}
         <div>
-          <label className="block text-gray-400 text-sm">Weight (kg)</label>
+          <label className="block text-gray-400 text-md">Weight (kg)</label>
           {isEditing ? (
             <input
               type="number"

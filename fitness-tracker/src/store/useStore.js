@@ -99,7 +99,9 @@ const useStore = create(
       },
 
 
-    clearWorkouts: () => set({ workoutList: {}, workoutHistory: [] }),
+    clearWorkouts: () => set({ workoutList: {} }),
+
+    clearHistory: () => set({ workoutHistory: [] }),
 
     //-----------------------------------------------------
     // --- API Exercises with localStorage caching --------
@@ -198,7 +200,11 @@ const useStore = create(
     }),
     {
       name: "workout-storage", // key name in localStorage
-      partialize: (state) => ({ workoutList: state.workoutList }), //Store only workoutList
+      partialize: (state) => ({ 
+        workoutList: state.workoutList,
+        workoutHistory: state.workoutHistory 
+       }), //Store only workoutList
+
     }
   )
 );

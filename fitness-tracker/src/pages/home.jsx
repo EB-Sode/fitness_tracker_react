@@ -28,7 +28,7 @@ export default function Home() {
     <Layout>
       {/* Sidebar Menu */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-gray-900 text-white flex flex-col p-6 space-y-4 shadow-lg transform transition-transform duration-300 z-50
+        className={`fixed top-0 left-0 h-full w-64 bg-gray-900 dark:bg-gray-900 text-white flex flex-col p-6 space-y-4 shadow-lg transform transition-transform duration-300 z-50
           ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         <button
@@ -62,48 +62,50 @@ export default function Home() {
         </Link>
       </aside>
 
-      <main className="flex-1 bg-transparent text-gray-200 p-10">
+      <main className="flex-1 bg-white dark:bg-transparent text-gray-900 dark:text-gray-200 p-10 transition-colors duration-300">
         <div className="max-w-6xl mx-auto px-6 py-10 mt-20">
-          <h1 className="text-4xl font-bold text-red-400 mb-12 text-center">
+          <h1 className="text-4xl font-bold text-red-500 dark:text-red-400 mb-12 text-center transition-colors duration-300">
             Welcome to FitLife
           </h1>
 
           {/* Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 mb-16 ">
             {/* Menu Button as Card */}
             <button
               onClick={() => setMenuOpen(true)}
-              className="flex items-center bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition transform text-left"
+              className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition transform text-left"
             >
               <img
                 src="images/woman.jpg"
                 alt="Menu"
-                className="w-1/3 h-full object-cover bg-gray-700"
+                className="w-1/3 h-40 object-cover bg-gray-300 dark:bg-gray-700"
               />
               <div className="p-6 flex-1">
-                <h2 className="text-2xl font-bold text-white mb-3">Our Tools</h2>
-                <p className="text-gray-400 text-sm mb-4">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 transition-colors duration-300">
+                  Our Tools
+                </h2>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 transition-colors duration-300">
                   Access trackers, workout history, and more.
                 </p>
-                <span className="text-red-400 font-semibold hover:underline">
+                <span className="text-red-500 dark:text-red-400 font-semibold hover:underline transition-colors duration-300">
                   Open Menu →
                 </span>
               </div>
             </button>
 
             {/* Our Services */}
-            <Link to="/services" className="text-red-400 font-semibold">
-              <div className="flex items-center bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition transform">
+            <Link to="/services" className="text-red-500 dark:text-red-400 font-semibold">
+              <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition transform">
                 <img
                   src="images/istockphoto-892126458-612x612.jpg"
                   alt="Services"
-                  className="w-1/3 h-full object-cover bg-gray-700"
+                  className="w-1/3 h-40 object-cover bg-gray-300 dark:bg-gray-700"
                 />
                 <div className="p-6 flex-1 text-center">
-                  <h2 className="text-2xl font-bold text-white mb-3">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 transition-colors duration-300">
                     Our Services
                   </h2>
-                  <p className="text-gray-400 text-sm mb-4">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 transition-colors duration-300">
                     Personalized plans, nutrition, and coaching.
                   </p>
                 </div>
@@ -111,18 +113,18 @@ export default function Home() {
             </Link>
 
             {/* Contact Coach */}
-            <Link to="/services" className="text-red-400 font-semibold">
-              <div className="flex items-center bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition transform">
+            <Link to="/services" className="text-red-500 dark:text-red-400 font-semibold">
+              <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition transform">
                 <img
                   src="images/10-TIPS-TO-STAY-FOCUSED-WHILE-WORKING-OUT-AT-THE-GYM.webp"
                   alt="Coach"
-                  className="w-1/3 h-full object-cover bg-gray-700"
+                  className="w-1/3 h-40 object-cover bg-gray-300 dark:bg-gray-700"
                 />
                 <div className="p-6 flex-1 text-center">
-                  <h2 className="text-2xl font-bold text-white mb-3">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 transition-colors duration-300">
                     Contact Coach
                   </h2>
-                  <p className="text-gray-400 text-sm mb-4">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 transition-colors duration-300">
                     Get in touch with certified fitness trainers.
                   </p>
                 </div>
@@ -130,18 +132,18 @@ export default function Home() {
             </Link>
 
             {/* Nutrition manager */}
-            <Link to="/nutrition" className="text-red-400 font-semibold">
-              <div className="flex items-center bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition transform">
+            <Link to="/nutrition" className="text-red-500 dark:text-red-400 font-semibold">
+              <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition transform">
                 <img
-                  src="images/Workouts-for-Men.jpg"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2ACuGHpVzK7aiL7VtielvqPBgBgacxh9uUQ&s"
                   alt="Progress"
-                  className="w-1/3 h-full object-cover bg-gray-700"
+                  className="w-1/3 h-40 object-cover bg-gray-300 dark:bg-gray-700"
                 />
                 <div className="p-6 flex-1 text-center">
-                  <h2 className="text-2xl font-bold text-white mb-3">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 transition-colors duration-300">
                     Nutrition manager
                   </h2>
-                  <p className="text-gray-400 text-sm mb-4">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 transition-colors duration-300">
                     Monitor your feeding habits.
                   </p>
                 </div>
@@ -149,15 +151,21 @@ export default function Home() {
             </Link>
           </div>
 
-          <h1 className="text-4xl font-bold text-red-400 mb-12 text-center">
+          <h1 className="text-4xl font-bold text-red-500 dark:text-red-400 mb-12 text-center transition-colors duration-300">
             Choose a Filter to Explore Exercises
           </h1>
 
           {/* Loading / Error */}
           {loading && (
-            <p className="text-center text-gray-400">Loading exercises...</p>
+            <p className="text-center text-gray-600 dark:text-gray-400 transition-colors duration-300">
+              Loading exercises...
+            </p>
           )}
-          {error && <p className="text-center text-red-400">{error}</p>}
+          {error && (
+            <p className="text-center text-red-500 dark:text-red-400 transition-colors duration-300">
+              {error}
+            </p>
+          )}
 
           {/* Filter Categories */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
@@ -191,9 +199,14 @@ export default function Home() {
 // --- Small Reusable Filter Card Component ---
 function FilterCard({ title, link }) {
   return (
-    <div className="bg-gray-800 rounded-xl shadow-lg p-6 text-center hover:scale-105 transform transition duration-300">
-      <h2 className="text-xl font-bold text-white mb-3">{title}</h2>
-      <Link to={link} className="text-red-400 hover:underline font-semibold">
+    <div className="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center hover:scale-105 transform transition duration-300 border border-gray-200 dark:border-gray-700">
+      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3 transition-colors duration-300">
+        {title}
+      </h2>
+      <Link 
+        to={link} 
+        className="text-red-500 dark:text-red-400 hover:underline font-semibold transition-colors duration-300"
+      >
         Explore →
       </Link>
     </div>

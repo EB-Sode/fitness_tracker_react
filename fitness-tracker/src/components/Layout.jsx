@@ -8,7 +8,11 @@ function Layout({ children }) {
       <main className="flex-grow max-w-6xl mx-auto mt-40 p-6">
         {children}
       </main>
+      
+     
       <Footer />
+  
+
     </div>
   );
 }

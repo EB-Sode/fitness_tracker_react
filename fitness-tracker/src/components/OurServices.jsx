@@ -1,5 +1,7 @@
 // src/components/OurServices.jsx
 import { Dumbbell, Salad, UserCheck } from "lucide-react";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
 
 export default function OurServices() {
   const services = [
@@ -23,21 +25,58 @@ export default function OurServices() {
     },
   ];
 
-  return (
-    <section className="py-16 bg-red-300 text-center" id="services">
-      <h2 className="text-4xl font-bold text-blue-600 mb-10">Our Services</h2>
-      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-6">
+    // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, when: "beforeChildren", staggerChildren: 0.2 },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+  };
+
+
+return (
+    <motion.section
+      className="py-16 bg-gradient-to-r from-red-700 to-red-900 text-center"
+      id="services"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <motion.h2
+        className="text-4xl font-bold text-blue-400 mb-10"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        Explore with us
+      </motion.h2>
+
+      <motion.div
+        className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-6"
+        variants={containerVariants}
+      >
         {services.map((service, index) => (
-          <div
+          <motion.div
             key={index}
+            variants={cardVariants}
+            whileHover={{ scale: 1.05 }}
             className="bg-red-200 p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
           >
-            <div className="flex justify-center mb-4 ">{service.icon}</div>
-            <h3 className="text-2xl font-semibold mb-3 text-blue-600">{service.title}</h3>
+            <div className="flex justify-center mb-4 text-4xl">{service.icon}</div>
+            <h3 className="text-2xl font-semibold mb-3 text-blue-600">
+              {service.title}
+            </h3>
             <p className="text-gray-600">{service.description}</p>
-          </div>
+          </motion.div>
         ))}
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }
