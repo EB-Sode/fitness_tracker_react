@@ -8,6 +8,9 @@ import WorkoutDetails from "./components/WorkOutDetails";
 import WorkoutHistory from "./components/WorkOutHistory";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Services from "./pages/services";
+import Nutrition from "./pages/nutrition";
+
 
 function App() {
   return (
@@ -71,8 +74,27 @@ function App() {
               </ProtectedRoute>
             }
           />
-          
-        </Routes>
+
+          <Route
+            path="/services"
+            element={
+              <ProtectedRoute>
+               <Services />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+              path="/nutrition"
+              element={
+                <ProtectedRoute>
+                <Nutrition />
+                </ProtectedRoute>
+              }
+            />
+            
+          </Routes>
+
       </Router>
     </AuthProvider>
   );

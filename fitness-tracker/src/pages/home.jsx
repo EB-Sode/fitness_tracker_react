@@ -111,7 +111,7 @@ export default function Home() {
             </Link>
 
             {/* Contact Coach */}
-            <Link to="/contact" className="text-red-400 font-semibold">
+            <Link to="/services" className="text-red-400 font-semibold">
               <div className="flex items-center bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition transform">
                 <img
                   src="images/10-TIPS-TO-STAY-FOCUSED-WHILE-WORKING-OUT-AT-THE-GYM.webp"
@@ -129,8 +129,8 @@ export default function Home() {
               </div>
             </Link>
 
-            {/* Progress Tracker */}
-            <Link to="/progress" className="text-red-400 font-semibold">
+            {/* Nutrition manager */}
+            <Link to="/nutrition" className="text-red-400 font-semibold">
               <div className="flex items-center bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition transform">
                 <img
                   src="images/Workouts-for-Men.jpg"
@@ -139,10 +139,10 @@ export default function Home() {
                 />
                 <div className="p-6 flex-1 text-center">
                   <h2 className="text-2xl font-bold text-white mb-3">
-                    Progress Tracker
+                    Nutrition manager
                   </h2>
                   <p className="text-gray-400 text-sm mb-4">
-                    Monitor your goals and achievements.
+                    Monitor your feeding habits.
                   </p>
                 </div>
               </div>
