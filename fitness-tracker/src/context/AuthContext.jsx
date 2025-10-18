@@ -4,21 +4,23 @@ import { createContext, useState, useEffect } from "react";
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); // stores logged-in user details
+  const [loading, setLoading] = useState(true); // prevents flicker on refresh
 
   // Check login status from localStorage on load
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      setUser(JSON.parse(storedUser)); //restore data 
     }
+    setLoading(false); // done checking storage
   }, []);
 
   // Mock signup
-  const signup = (username, password) => {
-    const newUser = { username, password };
-    localStorage.setItem("user", JSON.stringify(newUser));
-    setUser(newUser);
+  const signup = (username, password, email, age, weight) => {
+    const newUser = { username, password, email, age, weight, profileImgae: ""};
+    localStorage.setItem("user", JSON.stringify(newUser)); // save user in local storage
+    setUser(newUser); //save user in state
   };
 
   // Mock login
@@ -37,8 +39,21 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
+  //Update user profile info
+  const updateProfile = (updatedFields) => {
+    const updatedUser = { ...user, ...updatedFields };
+    setUser(updatedUser);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+  };
+
+
+  // ✅ Prevent rendering protected routes before checking storage
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <AuthContext.Provider value={{ user, signup, login, logout }}>
+    <AuthContext.Provider value={{ user, signup, login, logout, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );

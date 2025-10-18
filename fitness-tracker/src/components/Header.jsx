@@ -43,6 +43,16 @@ export default function Header() {
             Goals
           </NavLink>
           <NavLink
+            to="/account"
+            className={({ isActive }) =>
+              `text-gray-100 hover:text-red-400 transition ${
+                isActive ? "border-b-2 border-red-500 pb-1" : ""
+              }`
+            }
+          >
+            Account
+          </NavLink>
+          <NavLink
             to="/login"
             className={({ isActive }) =>
               `text-gray-100 hover:text-red-400 transition ${

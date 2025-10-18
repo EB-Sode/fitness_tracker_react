@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 export default function LoginSignup() {
 
@@ -89,6 +90,7 @@ export default function LoginSignup() {
 
   return (
     <div className="flex items-center justify-center min-h-screen">
+    
       {/* Card container for form */}
       <div className="w-full max-w-md bg-gray-800 bg-opacity-90 rounded-2xl shadow-lg p-8">
         {/* Title changes based on mode (Login or Signup) */}
@@ -190,6 +192,18 @@ export default function LoginSignup() {
             {isLogin ? "Sign Up" : "Login"}
           </button>
         </p>
+        <div>
+          
+          <Link
+          to="/"
+          className=" px-4 py-2 text-gray-400 hover:underline rounded mt-10 text-semi-bold"
+        >
+          <p>
+            Already logged in? <span className="text-blue-500">Home</span>
+          </p>
+          
+        </Link>
+        </div>
       </div>
     </div>
   );

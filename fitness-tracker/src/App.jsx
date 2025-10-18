@@ -10,11 +10,14 @@ import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Services from "./pages/services";
 import Nutrition from "./pages/nutrition";
+import AccountPage from "./pages/userAccount";
+import { SettingsProvider } from "./context/SettingsContext";
 
 
 function App() {
   return (
     <AuthProvider>
+      <SettingsProvider>
       <Router>
         <Routes>
           <Route path="/login" element={<LoginSignup />} />
@@ -67,6 +70,14 @@ function App() {
             }
           />
           <Route
+            path="/account"
+            element={
+              <ProtectedRoute>
+                <AccountPage />
+              </ProtectedRoute>
+            }
+            />
+          <Route
             path="/goals"
             element={
               <ProtectedRoute>
@@ -92,10 +103,11 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            
+
           </Routes>
 
       </Router>
+      </SettingsProvider>
     </AuthProvider>
   );
 }
