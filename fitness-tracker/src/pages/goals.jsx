@@ -2,6 +2,7 @@
 import Layout from "../components/Layout";
 import GoalTracker from "../components/GoalTracker";
 
+
 function Goals() {
   return (
     <Layout>

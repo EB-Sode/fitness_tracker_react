@@ -85,21 +85,23 @@ export default function WorkoutDetails() {
           ← Back to Home
         </Link>
         <div>
+        <div>
         <Link
           to="/workout"
           className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
         >
           Go to My Workouts →
         </Link>
-      <button
-          onClick={() => refreshExercises()}
-          disabled={loading}
-          className={`px-4 py-2 rounded text-white ${
-            loading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
-          }`}
-        >
-        {loading ? "Refreshing..." : "Refresh Data"}
-      </button>
+        <button
+            onClick={() => refreshExercises()}
+            disabled={loading}
+            className={`px-4 py-2 rounded text-white ${
+              loading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+            }`}
+          >
+          {loading ? "Refreshing..." : "Refresh Data"}
+        </button>
+        </div>
         </div>
 
       </div>

@@ -29,6 +29,7 @@ function ExerciseCard({ exercise }) {
     <div className="bg-gray-800 p-6 rounded-lg shadow hover:scale-105 transition">
         {/* Exercise image */}
         {image && <img src={image} alt={name} className="w-full h-40 object-cover rounded mb-3" />}
+        
         {/* Other details */}
       <h3 className="text-lg font-semibold text-white mb-2">{name}</h3>
 

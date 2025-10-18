@@ -58,13 +58,6 @@ export default function Home() {
           to="/goals"
           className="px-4 py-2 rounded-md hover:bg-gray-700 transition"
         >
-          Goals Tracker
-        </Link>
-
-        <Link
-          to="/workoutlist"
-          className="px-4 py-2 rounded-md hover:bg-gray-700 transition"
-        >
           Workout List
         </Link>
       </aside>

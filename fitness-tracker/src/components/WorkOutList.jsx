@@ -7,7 +7,7 @@ function WorkoutList() {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold text-red-400 mb-6">My Workouts</h2>
+      <h2 className="text-2xl font-bold text-red-400 mb-6">My Workouts Goals</h2>
 
       {Object.keys(workoutList || {}).length === 0 ? (
         <p className="text-gray-400">No workouts added yet.</p>

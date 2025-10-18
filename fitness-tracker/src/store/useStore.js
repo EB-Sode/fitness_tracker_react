@@ -62,24 +62,42 @@ const useStore = create(
           const workout = state.workoutList[day]?.find((w) => w.id === workoutId);
           if (!workout) return {};
 
-          const updatedDayList = state.workoutList[day].filter((w) => w.id !== workoutId);
+          // Create a "done" version of the workout
+          const completedWorkout = {
+            ...workout,
+            completed: true,
+            completedAt: new Date().toISOString(),
+          };
+
+          // Update active list — mark as done but keep it
+          const updatedDayList = state.workoutList[day].map((w) =>
+            w.id === workoutId ? { ...w, completed: true } : w
+          );
+
           const newWorkoutList = {
             ...state.workoutList,
             [day]: updatedDayList,
           };
 
-          const updatedHistory = [
-            ...state.workoutHistory,
-            { ...workout, completedAt: new Date().toISOString() },
-          ];
+          // Append to history (avoid duplicates)
+          const alreadyLogged = state.workoutHistory.some(
+            (h) => h.id === workoutId && h.day === day
+          );
 
-          console.log(`✅ Marked workout ${workout.exercise} as done for ${day}`);
-          console.log("📘 Updated List:", newWorkoutList);
-          console.log("📚 Updated History:", updatedHistory);
+          const updatedHistory = alreadyLogged
+            ? state.workoutHistory
+            : [...state.workoutHistory, completedWorkout].sort(
+                (a, b) => new Date(a.completedAt) - new Date(b.completedAt)
+              );
+
+          console.log(`✅ Marked ${workout.exercise} as done on ${day}`);
+          console.log("📘 Active Workouts:", newWorkoutList);
+          console.log("📚 Sorted History:", updatedHistory);
 
           return { workoutList: newWorkoutList, workoutHistory: updatedHistory };
         });
       },
+
 
     clearWorkouts: () => set({ workoutList: {}, workoutHistory: [] }),
 
