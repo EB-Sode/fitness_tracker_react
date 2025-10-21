@@ -3,7 +3,7 @@ import Home from "./pages/home";
 import Dashboard from "./pages/dashboard";
 import LoginSignup from "./pages/login";
 import Workout from "./pages/workout";
-import WorkoutList from "./components/WorkoutList";
+import WorkoutList from "./components/WorkOutList";
 import WorkoutDetails from "./components/WorkOutDetails";
 import WorkoutHistory from "./components/WorkOutHistory";
 import { AuthProvider } from "./context/AuthContext";

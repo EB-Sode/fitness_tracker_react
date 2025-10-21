@@ -1,6 +1,6 @@
 import { useState } from "react";
 import WorkoutForm from "../components/WorkoutForm";
-import WorkoutList from "../components/WorkoutList";
+import WorkoutList from "../components/WorkOutList";
 import Layout from "../components/Layout";
 
 export default function Workout() {
