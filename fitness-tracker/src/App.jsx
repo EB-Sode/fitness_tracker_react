@@ -3,7 +3,6 @@ import Home from "./pages/home.jsx";
 import Dashboard from "./pages/dashboard.jsx";
 import LoginSignup from "./pages/login.jsx";
 import Workout from "./pages/workout.jsx";
-import WorkoutList from "./components/WorkoutList.jsx";
 import WorkoutDetails from "./components/WorkoutDetails.jsx";
 import WorkoutHistory from "./components/WorkoutHistory.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";

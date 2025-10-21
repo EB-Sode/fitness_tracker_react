@@ -3,7 +3,7 @@ import useStore from "../store/useStore.js";
 function GoalTracker() {
   const workouts = useStore((state) => state.workouts);
 
-  // ✅ Safely flatten workouts grouped by day (if it's an object)
+  // ✅ Safely flatten workouts grouped by day
   const allWorkouts = Array.isArray(workouts)
     ? workouts
     : Object.values(workouts || {}).flat();
