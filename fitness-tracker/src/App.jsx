@@ -1,17 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/home";
-import Dashboard from "./pages/dashboard";
-import LoginSignup from "./pages/login";
-import Workout from "./pages/workout";
-import WorkoutList from "./components/WorkoutList";
-import WorkoutDetails from "./components/WorkoutDetails";
-import WorkoutHistory from "./components/WorkoutHistory";
-import { AuthProvider } from "./context/AuthContext";
-import ProtectedRoute from "./components/ProtectedRoute";
-import Services from "./pages/services";
-import Nutrition from "./pages/nutrition";
-import AccountPage from "./pages/userAccount";
-import { SettingsProvider } from "./context/SettingsContext";
+import Home from "./pages/home.jsx";
+import Dashboard from "./pages/dashboard.jsx";
+import LoginSignup from "./pages/login.jsx";
+import Workout from "./pages/workout.jsx";
+import WorkoutList from "./components/WorkoutList.jsx";
+import WorkoutDetails from "./components/WorkoutDetails.jsx";
+import WorkoutHistory from "./components/WorkoutHistory.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import Services from "./pages/services.jsx";
+import Nutrition from "./pages/nutrition.jsx";
+import AccountPage from "./pages/userAccount.jsx";
+import { SettingsProvider } from "./context/SettingsContext.jsx";
 
 
 function App() {

@@ -1,8 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
-import useStore from "../store/useStore";
-import ExerciseCard from "./ExerciseCard";
-import Footer from "./Footer";
+import useStore from "../store/useStore.js";
+import ExerciseCard from "./ExerciseCard.jsx";
+import Footer from "./Footer.jsx";
 
 export default function WorkoutDetails() {
   const { category } = useParams();

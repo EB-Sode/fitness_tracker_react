@@ -1,7 +1,7 @@
 import React from "react";
-import useStore from "../store/useStore";
+import useStore from "../store/useStore.js";
 import { Link } from "react-router-dom";
-import Footer from "./Footer";
+import Footer from "./Footer.jsx";
 
 const WorkoutHistory = () => {
   const workoutHistory = useStore((state) => state.workoutHistory) || [];

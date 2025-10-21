@@ -1,7 +1,6 @@
-// src/pages/Services.jsx
-import OurServices from "../components/OurServices";
-import ContactUs from "../components/OurContact";
-import Footer from "../components/Footer";
+import OurServices from "../components/OurServices.jsx";
+import ContactUs from "../components/OurContact.jsx";
+import Footer from "../components/Footer.jsx";
 import { Link } from "react-router-dom";
 
 export default function Services() {

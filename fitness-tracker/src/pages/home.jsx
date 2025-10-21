@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Layout from "../components/Layout";
+import Layout from "../components/Layout.jsx";
 import { Link } from "react-router-dom";
-import useStore from "../store/useStore";
+import useStore from "../store/useStore.js";
 
 export default function Home() {
   const {

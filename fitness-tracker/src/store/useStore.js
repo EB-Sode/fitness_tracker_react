@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import api from "./services";
+import api from "./services.js";
 
 const CACHE_KEY = "exercises_cache";
 

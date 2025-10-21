@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Profile from "../components/UserProfile";
-import Settings from "../components/Setting";
-import BillingPage from "../components/Billing";
-import Header from "../components/Header";
+import Profile from "../components/UserProfile.jsx";
+import Settings from "../components/Setting.jsx";
+import BillingPage from "../components/Billing.jsx";
+import Header from "../components/Header.jsx";
 
 export default function AccountPage() {
   const [activeTab, setActiveTab] = useState("profile");

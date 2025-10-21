@@ -1,7 +1,7 @@
 import { useState } from "react";
-import WorkoutForm from "../components/WorkoutForm";
-import WorkoutList from "../components/WorkoutList";
-import Layout from "../components/Layout";
+import WorkoutForm from "../components/WorkoutForm.jsx";
+import WorkoutList from "../components/WorkoutList.jsx";
+import Layout from "../components/Layout.jsx";
 
 export default function Workout() {
   const [workouts, setWorkouts] = useState([]);

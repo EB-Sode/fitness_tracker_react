@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import Settings from "../components/Setting";
+import Settings from "../components/Setting.jsx";
 
 
 const SettingsContext = createContext();

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import useStore from "../store/useStore";
+import useStore from "../store/useStore.js";
 
 function WorkoutForm() {
   const addWorkout = useStore((state) => state.addWorkout);
